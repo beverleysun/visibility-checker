@@ -1,0 +1,10 @@
+# IntelliJ specific
+*.iml
+/out/
+/.idea/
+
+# User specific
+*.docx
+*.pdf
+*.zip
+/to-submit/
