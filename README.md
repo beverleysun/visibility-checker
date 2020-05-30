@@ -1,7 +1,7 @@
-# Visibility Checker
-A program to list out fields and methods in all classes in a package
+## Visibility Checker
+#### A program to list out fields and methods in all classes in a package
 
-# How Do I Use This?
+### How Do I Use This?
 1. [Download](https://github.com/beverleysun/visibility-checker/archive/master.zip) this repository
 2. Move the `visibilitychecker` folder into the package that requires checking
    - Refactor the 1st line of all .java files to conform with your package structure
