@@ -22,8 +22,8 @@ public class Checker {
             System.out.println("For" + className + ":");
             try {
                 cls = Class.forName(_packageName + "." + className);
-                fields = cls.getFields();
-                methods = cls.getMethods();
+                fields = cls.getDeclaredFields();
+                methods = cls.getDeclaredMethods();
 
 
                 System.out.println("Fields:");
