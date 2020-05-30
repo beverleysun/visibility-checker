@@ -23,9 +23,8 @@ public class Directory {
         List<String> classNames = new ArrayList<String>();
 
         for (String fileName: fileNames) {
-            int nameLength = fileName.length() - 1;
 
-            if (fileName.substring(nameLength-4).equals(".java")){
+            if (fileName.endsWith(".java")){
                 classNames.add(fileName.replace(".java",""));
             }
         }
