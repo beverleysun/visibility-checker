@@ -19,21 +19,21 @@ public class Checker {
         Method[] methods;
 
         for (String className: _classNames) {
-            System.out.println("For" + className + ":");
+            System.out.println(_packageName + "." + className + ":");
             try {
                 cls = Class.forName(_packageName + "." + className);
                 fields = cls.getDeclaredFields();
                 methods = cls.getDeclaredMethods();
 
 
-                System.out.println("Fields:");
+                System.out.println("    Fields:");
                 for (Field field: fields) {
-                    System.out.println(field);
+                    System.out.println("        " + field);
                 }
 
-                System.out.println("Methods:");
+                System.out.println("    Methods:");
                 for (Method method: methods) {
-                    System.out.println(method);
+                    System.out.println("        " + method);
                 }
             } catch (ClassNotFoundException e) {
                 System.out.println(e.toString());
