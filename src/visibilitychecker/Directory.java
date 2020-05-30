@@ -7,10 +7,15 @@ import java.util.List;
 public class Directory {
     private File _folder;
     private String _osSlash = "\\"; // For Windows: "\\" For Mac: "/"
-    private String _sourcesRoot = "" + _osSlash; // If your root package is in a sources root folder, then change this to the name of that folder
+    private String _sourcesRoot; // If your root package is in a sources root folder, then initialise this to the name of that folder
 
     public Directory(String folderName) {
-        _folder = new File(_sourcesRoot + folderName.replace(".", _osSlash));
+        if (_sourcesRoot != null) {
+            _folder = new File(_sourcesRoot + _osSlash + folderName.replace(".", _osSlash));
+        } else {
+            _folder = new File(folderName.replace(".", _osSlash));
+        }
+
     }
 
     public List<String> getClassNames() {
