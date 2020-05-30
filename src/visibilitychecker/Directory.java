@@ -7,10 +7,9 @@ import java.util.List;
 public class Directory {
     private File _folder;
     private String _osSlash = "\\"; // For Windows: "\\" For Mac: "/"
-    private String _prefix = "src" + _osSlash;
 
     public Directory(String folderName) {
-        _folder = new File(_prefix + folderName.replace(".", _osSlash));
+        _folder = new File(folderName.replace(".", _osSlash));
     }
 
     public List<String> getClassNames() {
