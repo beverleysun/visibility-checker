@@ -53,7 +53,7 @@ public class VisibilityChecker extends JFrame {
 
         setTitle(_title);
         setVisible(true);
-        setResizable(false);
+        setResizable(true);
     }
 
     public void setUpGUI() {
@@ -84,8 +84,8 @@ public class VisibilityChecker extends JFrame {
         _resultTextArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(_resultTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        _fieldsBox = new JCheckBox("Methods");
-        _methodsBox = new JCheckBox("Fields");
+        _fieldsBox = new JCheckBox("Fields");
+        _methodsBox = new JCheckBox("Methods");
 
         _publicVisBox = new JCheckBox("Public");
         _privateVisBox = new JCheckBox("Private");
