@@ -9,10 +9,6 @@ import java.util.List;
 
 public class VisibilityChecker extends JFrame {
 
-    private int _windowSizeWidth = 600;
-    private int _windowSizeHeight = 400;
-    private String _title = "Visibility Checker";
-
     private JCheckBox _publicVisBox, _privateVisBox, _protectedVisBox, _packageVisBox;
     private JCheckBox _methodsBox, _fieldsBox;
     private JTextArea _resultTextArea;
@@ -46,9 +42,15 @@ public class VisibilityChecker extends JFrame {
     }
 
     public void drawWindow() {
+        int _windowSizeWidth = 600;
+        int _windowSizeHeight = 400;
+        String _title = "Visibility Checker";
+
+
         setSize(_windowSizeWidth, _windowSizeHeight);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setTitle(_title);
         setVisible(true);
         setResizable(false);
