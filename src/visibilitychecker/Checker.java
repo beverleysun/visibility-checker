@@ -13,7 +13,7 @@ public class Checker {
         _classNames = classNames;
     }
 
-    public void check(){
+    public void check(boolean publicVis, boolean privateVis, boolean protectedVis, boolean packageVis) {
         Class cls;
         Field[] fields;
         Method[] methods;
@@ -28,18 +28,34 @@ public class Checker {
 
                 System.out.println("    Fields:");
                 for (Field field: fields) {
-                    System.out.println("        " + field);
+                    print(publicVis, privateVis, protectedVis, packageVis, field.toString());
                 }
 
                 System.out.println("    Methods:");
                 for (Method method: methods) {
-                    System.out.println("        " + method);
+                    print(publicVis, privateVis, protectedVis, packageVis, method.toString());
                 }
             } catch (ClassNotFoundException e) {
                 System.out.println(e.toString());
             }
             System.out.println();
         }
+    }
+
+    private void print(boolean publicVis, boolean privateVis, boolean protectedVis, boolean packageVis, String str) {
+        if (publicVis && str.contains("public")) {
+            System.out.println("        " + str);
+        }
+        if (privateVis && str.contains("private")) {
+            System.out.println("        " + str);
+        }
+        if (protectedVis && str.contains("protected")) {
+            System.out.println("        " + str);
+        }
+        if (packageVis && !str.contains("public") && !str.contains("private") && !str.contains("protected")) {
+            System.out.println("        " + str);
+        }
+
     }
 
 }
