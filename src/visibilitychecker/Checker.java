@@ -1,5 +1,6 @@
 package visibilitychecker;
 
+import javax.swing.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -13,33 +14,50 @@ public class Checker {
         _classNames = classNames;
     }
 
-    public void check(){
+    public void check(boolean publicVis, boolean privateVis, boolean protectedVis, boolean packageVis, boolean fieldsSelect, boolean methodsSelect, JTextArea textArea) {
         Class cls;
         Field[] fields;
         Method[] methods;
 
         for (String className: _classNames) {
-            System.out.println(_packageName + "." + className + ":");
+            textArea.append(_packageName + "." + className + ":\n");
             try {
                 cls = Class.forName(_packageName + "." + className);
                 fields = cls.getDeclaredFields();
                 methods = cls.getDeclaredMethods();
 
-
-                System.out.println("    Fields:");
-                for (Field field: fields) {
-                    System.out.println("        " + field);
+                if (fieldsSelect) {
+                    textArea.append("    Fields:" + "\n");
+                    for (Field field: fields) {
+                        print(publicVis, privateVis, protectedVis, packageVis, field.toString(), textArea);
+                    }
                 }
 
-                System.out.println("    Methods:");
-                for (Method method: methods) {
-                    System.out.println("        " + method);
+                if (methodsSelect) {
+                    textArea.append("    Methods:" + "\n");
+                    for (Method method : methods) {
+                        print(publicVis, privateVis, protectedVis, packageVis, method.toString(), textArea);
+                    }
                 }
             } catch (ClassNotFoundException e) {
-                System.out.println(e.toString());
+                textArea.append(e.toString() + "\n");
             }
-            System.out.println();
+            textArea.append("\n");
         }
     }
 
+    private void print(boolean publicVis, boolean privateVis, boolean protectedVis, boolean packageVis, String str, JTextArea textArea) {
+        if (publicVis && str.contains("public")) {
+            textArea.append("        " + str + "\n");
+        }
+        if (privateVis && str.contains("private")) {
+            textArea.append("        " + str + "\n");
+        }
+        if (protectedVis && str.contains("protected")) {
+            textArea.append("        " + str + "\n");
+        }
+        if (packageVis && !str.contains("public") && !str.contains("private") && !str.contains("protected")) {
+            textArea.append("        " + str + "\n");
+        }
+    }
 }
