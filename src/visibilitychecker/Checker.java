@@ -47,16 +47,16 @@ public class Checker {
     }
 
     private void print(boolean publicVis, boolean privateVis, boolean protectedVis, boolean packageVis, String str, JTextArea textArea) {
-        if (publicVis && str.contains("public")) {
+        if (publicVis && str.contains("public ")) {
             textArea.append("        " + str + "\n");
         }
-        if (privateVis && str.contains("private")) {
+        if (privateVis && str.contains("private ")) {
             textArea.append("        " + str + "\n");
         }
-        if (protectedVis && str.contains("protected")) {
+        if (protectedVis && str.contains("protected ")) {
             textArea.append("        " + str + "\n");
         }
-        if (packageVis && !str.contains("public") && !str.contains("private") && !str.contains("protected")) {
+        if (packageVis && !str.contains("public ") && !str.contains("private ") && !str.contains("protected ")) {
             textArea.append("        " + str + "\n");
         }
     }
