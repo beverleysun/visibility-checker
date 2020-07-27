@@ -1,7 +1,13 @@
 package visibilitychecker;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -9,7 +15,9 @@ import java.util.List;
 public class VisibilityChecker extends JFrame {
 
     private JCheckBox _publicVisBox, _privateVisBox, _protectedVisBox, _packageVisBox;
+    private JCheckBox _methodsBox, _fieldsBox;
     private boolean _publicVisSelected, _privateVisSelected, _protectedVisSelected, _packageVisSelected;
+    private boolean _methodsSelected, _fieldsSelected;
 
 
     public static void main(String[] args) {
@@ -25,7 +33,11 @@ public class VisibilityChecker extends JFrame {
 
         // Get all class names to check
         List<String> classNames = new Directory(packageForChecking).getClassNames();
-        System.out.println(classNames);
+        System.out.println("Classes to check: ");
+        for (String className : classNames){
+            System.out.println("    " + className);
+        }
+        System.out.println();
 
         // Check all classes
         Checker checker = new Checker(packageForChecking, classNames);
@@ -44,25 +56,41 @@ public class VisibilityChecker extends JFrame {
     public void setUpGUI() {
         JPanel mainPanel = new JPanel();
         JPanel operationPanel = new JPanel();
+        JPanel visibilityPanel = new JPanel();
+        JPanel methodsFieldsPanel = new JPanel();
 
-        Border operationBorder = BorderFactory.createTitledBorder("Visibility to check for:");
+        operationPanel.setLayout(new GridLayout());
 
-        operationPanel.setBorder(operationBorder);
-        operationPanel.setLayout(new BoxLayout(operationPanel, BoxLayout.PAGE_AXIS));
+        Border operationBorder = BorderFactory.createTitledBorder("Visibility To Check For:");
+        Border methodsFieldsBorder = BorderFactory.createTitledBorder("Methods and Fields:");
 
-        _publicVisBox = new JCheckBox("public");
-        _privateVisBox = new JCheckBox("private");
-        _protectedVisBox = new JCheckBox("protected");
-        _packageVisBox = new JCheckBox("package private");
+        visibilityPanel.setBorder(operationBorder);
+        visibilityPanel.setLayout(new BoxLayout(visibilityPanel, BoxLayout.PAGE_AXIS));
 
+        methodsFieldsPanel.setBorder(methodsFieldsBorder);
+        methodsFieldsPanel.setLayout(new BoxLayout(methodsFieldsPanel, BoxLayout.PAGE_AXIS));
+
+        _fieldsBox = new JCheckBox("Methods");
+        _methodsBox = new JCheckBox("Fields");
+
+        _publicVisBox = new JCheckBox("Public");
+        _privateVisBox = new JCheckBox("Private");
+        _protectedVisBox = new JCheckBox("Protected");
+        _packageVisBox = new JCheckBox("Package Private");
 
         JButton executeButton = new JButton("Run");
         executeButton.addActionListener(new ButtonListener());
 
-        operationPanel.add(_publicVisBox);
-        operationPanel.add(_privateVisBox);
-        operationPanel.add(_protectedVisBox);
-        operationPanel.add(_packageVisBox);
+        methodsFieldsPanel.add(_fieldsBox);
+        methodsFieldsPanel.add(_methodsBox);
+
+        visibilityPanel.add(_publicVisBox);
+        visibilityPanel.add(_privateVisBox);
+        visibilityPanel.add(_protectedVisBox);
+        visibilityPanel.add(_packageVisBox);
+
+        operationPanel.add(methodsFieldsPanel);
+        operationPanel.add(visibilityPanel);
         mainPanel.add(operationPanel);
         mainPanel.add(executeButton);
         add(mainPanel);
