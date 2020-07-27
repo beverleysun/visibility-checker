@@ -1,11 +1,13 @@
 package visibilitychecker;
 
 public class PackageName {
-    private String _packageForChecking;
+    private final String _packageForChecking;
+
     public PackageName(){
         String packageName = VisibilityChecker.class.getPackage().toString();
         int packageNameLength = packageName.length();
-        _packageForChecking = packageName.substring(8,packageNameLength - 18);
+        int _visibilitycheckerLength = 18;
+        _packageForChecking = packageName.substring(8,packageNameLength - _visibilitycheckerLength);
     }
 
     public String getPackageForChecking(){
