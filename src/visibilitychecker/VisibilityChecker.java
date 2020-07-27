@@ -2,18 +2,20 @@ package visibilitychecker;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class VisibilityChecker extends JFrame {
+
+    private JCheckBox _publicVisBox, _privateVisBox, _protectedVisBox, _packageVisBox;
+    private boolean _publicVisSelected, _privateVisSelected, _protectedVisSelected, _packageVisSelected;
+
 
     public static void main(String[] args) {
         VisibilityChecker visChecker = new VisibilityChecker();
         visChecker.setUpGUI();
         visChecker.drawWindow();
-
-
-
     }
 
     public void execute() {
@@ -27,7 +29,7 @@ public class VisibilityChecker extends JFrame {
 
         // Check all classes
         Checker checker = new Checker(packageForChecking, classNames);
-        checker.check();
+        checker.check(_publicVisSelected, _privateVisSelected, _protectedVisSelected, _packageVisSelected);
 
     }
 
@@ -48,24 +50,31 @@ public class VisibilityChecker extends JFrame {
         operationPanel.setBorder(operationBorder);
         operationPanel.setLayout(new BoxLayout(operationPanel, BoxLayout.PAGE_AXIS));
 
-        JCheckBox publicVisBox = new JCheckBox("public");
-        JCheckBox privateVisBox = new JCheckBox("private");
-        JCheckBox protectedVisBox = new JCheckBox("protected");
-        JCheckBox packageVisBox = new JCheckBox("package private");
+        _publicVisBox = new JCheckBox("public");
+        _privateVisBox = new JCheckBox("private");
+        _protectedVisBox = new JCheckBox("protected");
+        _packageVisBox = new JCheckBox("package private");
 
 
         JButton executeButton = new JButton("Run");
+        executeButton.addActionListener(new ButtonListener());
 
-
-        operationPanel.add(publicVisBox);
-        operationPanel.add(privateVisBox);
-        operationPanel.add(protectedVisBox);
-        operationPanel.add(packageVisBox);
+        operationPanel.add(_publicVisBox);
+        operationPanel.add(_privateVisBox);
+        operationPanel.add(_protectedVisBox);
+        operationPanel.add(_packageVisBox);
         mainPanel.add(operationPanel);
         mainPanel.add(executeButton);
         add(mainPanel);
     }
 
-
-
+    private class ButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            _publicVisSelected = _publicVisBox.isSelected();
+            _privateVisSelected = _privateVisBox.isSelected();
+            _protectedVisSelected = _protectedVisBox.isSelected();
+            _packageVisSelected = _packageVisBox.isSelected();
+            execute();
+        }
+    }
 }
