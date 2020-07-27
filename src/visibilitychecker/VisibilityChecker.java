@@ -53,7 +53,6 @@ public class VisibilityChecker extends JFrame {
 
         setTitle(_title);
         setVisible(true);
-        setResizable(false);
     }
 
     public void setUpGUI() {
