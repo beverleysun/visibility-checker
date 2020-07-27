@@ -4,7 +4,7 @@ import java.util.List;
 
 public class VisibilityChecker {
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) {
 
         // Get package name of java files for checking
         PackageName packageName = new PackageName();
