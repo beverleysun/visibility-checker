@@ -19,13 +19,23 @@ public class Directory {
     }
 
     public List<String> getClassNames() {
-        String[] fileNames = _folder.list();
+        return getClassNames(_folder.getAbsolutePath() + _osSlash, _folder);
+    }
+
+    public List<String> getClassNames(String basePath, File directory) {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            return new ArrayList<>();
+        }
+
         List<String> classNames = new ArrayList<String>();
-
-        for (String fileName: fileNames) {
-
-            if (fileName.endsWith(".java")){
-                classNames.add(fileName.replace(".java",""));
+        for (File file: files) {
+            if (file.isDirectory()) {
+                classNames.addAll(getClassNames(basePath, file));
+            }
+            else if (file.getName().endsWith(".java")) {
+                String filePath = file.getAbsolutePath().replace(basePath, "").replace(".java","");
+                classNames.add(filePath.replace(_osSlash, "."));
             }
         }
 
